@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack-dev-server --hot --inline -w",
-    "build": "webpack",
-    "release": "release-it"
+    "release": "webpack && git commit -am \"built\" && git push"
+    
   },
   "author": "",
   "license": "ISC",
