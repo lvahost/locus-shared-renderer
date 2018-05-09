@@ -1,6 +1,6 @@
 {
   "name": "locus-shared-renderer",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "locus shared renderer is a builder and endpoint compliant package that porperly renders shared elements",
   "main": "index.js",
   "scripts": {
