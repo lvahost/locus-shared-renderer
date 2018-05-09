@@ -7,6 +7,7 @@ module.exports = () => {
     return {
 
         run(opts) {
+            alert('running slider');
             if(!opts.el)
                 return false;
 
