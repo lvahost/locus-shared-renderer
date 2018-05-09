@@ -23,13 +23,13 @@ const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
-	entry: './src/index',
+	entry: './src/',
 
 	output: {
 		filename: 'locussharedrenderer.bundle.js',
 		path: path.resolve(__dirname, 'dist'),
+		libraryTarget: 'umd',
 		library: 'locussharedrenderer',
-		libraryTarget: 'umd'
 	},
 
 	module: {
