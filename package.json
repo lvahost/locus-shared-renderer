@@ -1,13 +1,12 @@
 {
   "name": "locus-shared-renderer",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "locus shared renderer is a builder and endpoint compliant package that porperly renders shared elements",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack-dev-server --hot --inline -w",
     "release": "webpack && git commit -am \"built\" && git push"
-    
   },
   "author": "",
   "license": "ISC",
