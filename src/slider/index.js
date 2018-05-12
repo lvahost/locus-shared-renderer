@@ -7,23 +7,57 @@ module.exports = () => {
     return {
 
         run(opts) {
-            alert('running slider');
-            if(!opts.el)
-                return false;
+            this.sliders = [];
+           
+            let loadsliders = this.loadsliders;
+            // $('body').on('DOMNodeInserted', '*', this.loadsliders(event));
+       
+            jQuery.fn.hkSlider = function() {
+                loadsliders(this);
+            };
+        },
 
-            let el = (opts.el.jquery) ? opts.el : $(opts.el);
-            el.find('.hkslider').each((index,element) => {
-
+        loadsliders(element) {
+            if(element.data('hkSlider'))
+                clearInterval(element.data('hkSlider'));
+            
                 // `element` Element is now the slider
                 let liWidth = $(element).find('li').width();
 
-                let li = $(element).find('li').each((index,element) => {
-                    if(index > 0) {
-                        $(element).attr('left', (index * liWidth) +"px");
-                    }
-                })
-            });
+                let lists = [];
 
+                let li = $(element).find('li').each((index,listel) => {
+
+                    let lpos = (index * liWidth) +"px";
+                    listel.style.left = lpos;
+                    listel.originalleft = lpos;
+
+
+                    lists.push(listel);
+                });
+
+            
+                let length = lists.length;
+                let count = 1;
+                let tim = setInterval(() => {
+                    if(count < length) {
+                        lists.forEach((item) => {
+                            $(item).animate({left:"-="+liWidth+"px"},800)
+                        })
+                        count++;
+                    }
+                    else {
+                        count=1;
+                        lists.forEach((item) => {
+                            $(item).animate({left:item.originalleft},1200);
+                        });
+                    }
+                    
+                },3000);
+
+
+                element.data('hkSlider',tim);
+              return true;
         }
     }
 }
