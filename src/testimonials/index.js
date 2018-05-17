@@ -5,19 +5,23 @@ module.exports = () => {
             this.opts = opts;
             let testimonial = this.testimonial;
             let self = this;
-            jQuery.fn.hkTestimonial = function() {
-                testimonial(this,self);
+            jQuery.fn.hkTestimonial = function (overwrite) {
+                testimonial(this, self, overwrite);
             }
+
+            $('.hkTestimonial').hkTestimonial();
         },
 
-        testimonial(element, self) {
-            
+        testimonial(element, self, overwrite) {
+
             let $el = $(element);
-            if($el.data('hkTestiominal'))
+            if ($el.data('hkTestiominal') && !overwrite)
                 return false;
-            
-            if(!$el.attr('testimonialitems')) {
-                $el.attr('testimonialitems',3);
+
+            console.log('testimonials found and rendered');
+
+            if (!$el.attr('testimonialitems')) {
+                $el.attr('testimonialitems', 3);
             }
             let elWidth = $el.width();
             let elItems = $el.attr('testimonialitems') || 3;
@@ -26,37 +30,47 @@ module.exports = () => {
             let length = $el.find('.testimony').length;
 
 
-            $el.find('.testimony').each((index,testEl) => {
-                let lpos = ( index * itemWidth ) + "px";
+            $el.find('.testimony').each((index, testEl) => {
+                let lpos = (index * itemWidth) + "px";
                 testEl.style.left = lpos;
                 testEl.style.width = itemWidth + "px";
                 testEl.originalLeft = lpos;
             });
 
-            if(!$el.find('.commands').length)
+            if (!$el.find('.commands').length)
                 self.createControls($el);
-            
-            let curIndex = 0;
-            let count = 1;
-            // Activate the controls
-            $el.find('.leftCtrl').on('click',() => {
-                $el.find('.testimony').each((index,testEl) => {
-                    if(count > 1) {
-                        $(testEl).stop().animate({
-                            left: '-=' + itemWidth +"px"
-                        })
-                        count--;
-                    }
-                })
-            })
 
-            $el.find('.rightCtrl').on('click',() => {
-                if(count < length) {
-                    $(testEl).stop().animate({
-                        left: "+=" + itemWidth +"px"
+            let curIndex = 0;
+            let count = elItems;
+
+            console.log('testimonial count: ',count);
+            console.log('testimonial length: ',length);
+
+            // Activate the controls
+            $el.find('.leftCtrl').unbind('click').on('click', () => {
+                if (count > elItems) {
+                    $el.find('.testimony').each((index, testEl) => {
+                        $(testEl).stop().animate({
+                            left: '+=' + itemWidth + "px"
+                        })
                     });
+
+                    count--;
                 }
             })
+
+            $el.find('.rightCtrl').unbind('click').on('click', () => {
+                if (count < length) {
+                    $el.find('.testimony').each((index, testEl) => {
+                        $(testEl).stop().animate({
+                            left: "-=" + itemWidth + "px"
+                        });
+                    });
+                    count++;
+                }
+            })
+
+            $el.data('hkTestimonial', true);
         },
 
         createControls(el) {
@@ -73,7 +87,7 @@ module.exports = () => {
         activateControls(el) {
             let controls = $(el).find('.commands');
 
-            
+
         }
     }
 }

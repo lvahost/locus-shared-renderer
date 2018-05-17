@@ -15,6 +15,8 @@ module.exports = () => {
             jQuery.fn.hkSlider = function() {
                 loadsliders(this);
             };
+
+            $('.hkSlider').hkSlider();
         },
 
         loadsliders(element) {
