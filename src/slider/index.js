@@ -42,14 +42,14 @@ module.exports = () => {
                 let tim = setInterval(() => {
                     if(count < length) {
                         lists.forEach((item) => {
-                            $(item).animate({left:"-="+liWidth+"px"},800)
+                            $(item).stop().animate({left:"-="+liWidth+"px"},800)
                         })
                         count++;
                     }
                     else {
                         count=1;
                         lists.forEach((item) => {
-                            $(item).animate({left:item.originalleft},1200);
+                            $(item).stop().animate({left:item.originalleft},1200);
                         });
                     }
                     

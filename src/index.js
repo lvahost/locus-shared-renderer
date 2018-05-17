@@ -1,5 +1,6 @@
 let deps =[
     require('./slider/'),
+    require('./testimonials/')
 ];
 
 module.exports = (opts) => {
