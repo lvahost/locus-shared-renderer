@@ -10,6 +10,10 @@ module.exports = () => {
             }
 
             $('.hkTestimonial').hkTestimonial();
+
+            $(window).resize(function() {
+                $('.hkTestimonial').hkTestimonial();
+            });
         },
 
         testimonial(element, self, overwrite) {
